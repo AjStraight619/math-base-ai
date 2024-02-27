@@ -14,6 +14,8 @@ const Navbar = async () => {
     await addUserToDatabase(user);
   }
 
+  console.log("user", user);
+
   return (
     <nav className="fixed left-0 top-0 w-full h-16 border-b border-gray-300 bg-gradient-to-b from-zinc-200   backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit   lg:dark:bg-zinc-800/30">
       <div className="container mx-auto flex h-full items-center justify-between px-6 relative">
