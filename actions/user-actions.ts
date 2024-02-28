@@ -3,6 +3,8 @@
 import { prisma } from "@/prisma/prisma";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 export const checkIfUserExists = async (userId: string) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -28,4 +30,10 @@ export const addUserToDatabase = async (user: KindeUser) => {
     },
   });
   return newUser;
+};
+
+export const getUserId = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  return user?.id;
 };

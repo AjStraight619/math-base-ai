@@ -1,10 +1,11 @@
-import Logo from "@/components/landing-page/logo";
+import Logo from "@/components/landing-page/animated-logo";
 import Navbar from "@/components/landing-page/navbar";
 import {
   LoginLink,
   RegisterLink,
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function Home() {
@@ -21,7 +22,7 @@ export default async function Home() {
 
       {(await isAuthenticated()) ? (
         <div className="mb-24 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-          <a
+          <Link
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
@@ -36,9 +37,9 @@ export default async function Home() {
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Find in-depth information about Next.js features and API.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
@@ -53,9 +54,9 @@ export default async function Home() {
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Learn about Next.js in an interactive course with&nbsp;quizzes!
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
@@ -70,7 +71,7 @@ export default async function Home() {
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Explore starter templates for Next.js.
             </p>
-          </a>
+          </Link>
 
           <a
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"

@@ -1,4 +1,10 @@
-import { Bot, LayoutDashboard, LogOut, Settings } from "lucide-react";
+import {
+  Bot,
+  LayoutDashboard,
+  LogOut,
+  NotebookPen,
+  Settings,
+} from "lucide-react";
 import React from "react";
 
 export const links = [
@@ -21,6 +27,16 @@ export const userOptions = [
     icon: React.createElement(LayoutDashboard),
   },
   {
+    path: "/chat",
+    name: "Chat",
+    icon: React.createElement(Bot),
+  },
+  {
+    path: "/note",
+    name: "Note",
+    icon: React.createElement(NotebookPen),
+  },
+  {
     path: "/settings",
     name: "Settings",
     icon: React.createElement(Settings),
@@ -32,6 +48,27 @@ export const userOptions = [
     icon: React.createElement(LogOut),
   },
 ] as const;
+
+export const ulVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+export const liVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+  },
+};
 
 export const repaths = [
   {

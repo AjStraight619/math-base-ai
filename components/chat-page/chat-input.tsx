@@ -6,7 +6,7 @@ const ChatInput = () => {
       <div className="shadow-md mx-auto p-2 w-full lg:w-[calc(100% - 12rem)] w-full md:max-w-xl">
         <Textarea
           placeholder="Type a message..."
-          className="w-full h-12 min-h-[48px] max-h-[200px] resize-none rounded-2xl"
+          className="w-full h-12 min-h-[48px] max-h-[200px] resize-none rounded-2xl -translate-y-1/2 top-1/2"
         />
       </div>
     </div>

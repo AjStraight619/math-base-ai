@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
+import CustomTooltip from "./custom-tooltip";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
@@ -20,19 +21,21 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          className={`absolute  right-2  z-[999] ${
-            isHome ? "top-3" : "top-2 hidden sm:inline-flex"
-          }`}
-          variant="ghost"
-          size="icon"
-        >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
+      <CustomTooltip tooltipMessage="Change Theme">
+        <DropdownMenuTrigger asChild>
+          <Button
+            className={`absolute  right-2  z-[999] ${
+              isHome ? "top-3" : "top-2 hidden sm:inline-flex"
+            }`}
+            variant="ghost"
+            size="icon"
+          >
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+      </CustomTooltip>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light

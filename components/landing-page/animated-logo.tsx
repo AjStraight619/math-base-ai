@@ -2,94 +2,49 @@
 import { repaths } from "@/lib/data";
 import { useAnimate } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
+const commonPathProperties = {
+  pathLength: [0, 1],
+  opacity: [0, 1],
+  duration: 1,
+  strokeStart: "#fff",
+};
+
+const uniquePathProperties = [
+  { id: "path1" },
+  { id: "path2" },
+  { id: "path3" },
+  { id: "path4" },
+  { id: "path5" },
+  { id: "path6" },
+  { id: "path7", duration: 1.2 },
+  { id: "path8", duration: 1.5 },
+];
+
+const getStrokeEndColor = (theme: string | undefined) =>
+  theme === "dark" ? "#FF8500" : "#B56F1D";
 const Logo = () => {
   const [scope, animate] = useAnimate();
   const { theme } = useTheme();
 
-  const [hasAnimationCompleted, setHasAnimationCompleted] = useState(false);
+  useEffect(() => {}, []);
 
   const paths = useMemo(
-    () => [
-      {
-        id: "path1",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        // fillDelay: 0.5,
-      },
-      {
-        id: "path2",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        // fillDelay: 0.5,
-      },
-      {
-        id: "path3",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        // fillDelay: 0.5,
-      },
-      {
-        id: "path4",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        // fillDelay: 0.5,
-      },
-      {
-        id: "path5",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        fillDelay: 0.5,
-      },
-      {
-        id: "path6",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        fillDelay: 0.5,
-      },
-      {
-        id: "path7",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        fillDelay: 0.5,
-      },
-      {
-        id: "path8",
-        pathLength: [0, 1],
-        opacity: [0, 1],
-        duration: 1,
-        strokeStart: "#fff",
-        strokeEnd: theme === "dark" ? "#007AFF" : "#4A90E2",
-        fillDelay: 0.8,
-      },
-    ],
+    () =>
+      uniquePathProperties.map((path) => ({
+        ...commonPathProperties,
+        ...path,
+        strokeEnd: getStrokeEndColor(theme),
+      })),
     [theme]
   );
 
   useEffect(() => {
-    if (scope.current) {
+    const currentScope = scope.current;
+    const abortController = new AbortController();
+
+    if (currentScope) {
       const animatePaths = async () => {
         for (const path of paths) {
           const {
@@ -98,16 +53,15 @@ const Logo = () => {
             duration,
             strokeStart,
             strokeEnd,
-            fillDelay,
+            // fillDelay,
           } = path;
-          console.log("Animating:", id);
 
           // Animate stroke and opacity
           await animate(
             `#${id}`,
             {
               pathLength,
-              opacity: [0, 1],
+              opacity: [0.4, 1],
               stroke: [strokeStart, strokeEnd],
             },
             {
@@ -116,23 +70,17 @@ const Logo = () => {
             }
           );
 
-          setTimeout(
-            () => {
-              animate(
-                `#${id}`,
-                {
-                  stroke: "#000",
-                  fill: "#000",
-                  scale: [0.8, 1.3, 1],
-                },
-                {
-                  duration: 0.5,
-                  ease: "easeInOut",
-                }
-              );
+          animate(
+            `#${id}`,
+            {
+              stroke: "#000",
+              fill: "#000",
+              scale: [0.8, 1.3, 1],
             },
-            0,
-            duration * 1000 + (fillDelay || 0)
+            {
+              duration: 0.5,
+              ease: "easeInOut",
+            }
           );
         }
       };
