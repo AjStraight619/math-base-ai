@@ -1,4 +1,5 @@
 import { createNewChat } from "@/actions/chat-actions";
+import { OptimisticChatAction } from "@/lib/types";
 import { getToastMessage } from "@/lib/utils";
 import { MessageCirclePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -6,17 +7,21 @@ import { useDebouncedCallback } from "use-debounce";
 import CustomTooltip from "../ui/custom-tooltip";
 import SubmitButton from "../ui/submit-button";
 
-const NewChat = () => {
+type NewChatProps = {
+  dispatch: React.Dispatch<OptimisticChatAction>;
+};
+
+const NewChat = ({ dispatch }: NewChatProps) => {
   const { push } = useRouter();
 
   const handleCreateChat = useDebouncedCallback(async (formData: FormData) => {
-    // Going to use formData in the future
-    const { success, error, chatId } = await createNewChat();
+    dispatch({
+      type: "ADD",
+      payload: { title: "New Chat-optimistic", id: "temp", pending: true },
+    });
+    const { success, error, chatId } = await createNewChat(formData);
     getToastMessage(error, success, "Chat created successfully");
-    if (success) {
-      push(`/chat/${chatId}`);
-    }
-  }, 1000);
+  }, 0);
 
   return (
     <CustomTooltip tooltipMessage="New Chat">

@@ -1,26 +1,38 @@
 "use client";
 
+import { SidebarMetaData } from "@/lib/types";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
-import NewChat from "./new-chat";
+import { Skeleton } from "../ui/skeleton";
+import UserDropdown from "../user/user-dropdown";
+import SidebarChat from "./sidebar-chat";
 import SidebarDashboard from "./sidebar-dashboard";
-import SidebarHeader from "./sidebar-header";
 
-const Sidebar = () => {
+type SidebarProps = {
+  chats: SidebarMetaData;
+};
+
+const Sidebar = ({ chats }: SidebarProps) => {
+  const { user, isLoading } = useKindeBrowserClient();
   const pathname = usePathname();
-  if (pathname === "/" || pathname === "/test") return null; // if we are on home page dont show sidebar
+  if (pathname === "/") return null; // if we are on home page dont show sidebar
   const isChatPath = pathname.includes("/chat/");
   const isDashboardPath = pathname.includes("/dashboard");
 
   return (
-    <nav className="fixed top-0 left-0 w-48 h-full border border-r p-2 pb-4 hidden md:block">
-      <div className="flex flex-col">
-        <div className="flex flex-row items-center justify-between ">
-          <SidebarHeader />
-          {isChatPath && <NewChat />}
+    <aside className="fixed top-0 left-0 w-48 h-screen border border-r p-2 pb-4 hidden md:block ">
+      <div className="flex flex-col h-full">
+        <div className="flex-1 overflow-y-auto">
+          <div>
+            {isDashboardPath && <SidebarDashboard />}
+            {isChatPath && <SidebarChat chats={chats} />}
+          </div>
         </div>
-        {isDashboardPath && <SidebarDashboard />}
+        <div className="mt-auto">
+          {isLoading ? <Skeleton /> : <UserDropdown user={user} />}
+        </div>
       </div>
-    </nav>
+    </aside>
   );
 };
 

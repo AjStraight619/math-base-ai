@@ -1,3 +1,4 @@
+import { getChatMetaData } from "@/actions/chat-actions";
 import Sidebar from "@/components/sidebar/sidebar";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -14,16 +15,17 @@ export const metadata: Metadata = {
     "Math Base is a math learning platform for students and teachers.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const chats = await getChatMetaData();
   return (
     <>
       <html lang="en" suppressHydrationWarning>
         <body className={`${inter.className} relative bg-background`}>
-          <Sidebar />
+          <Sidebar chats={chats} />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

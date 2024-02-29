@@ -41,3 +41,6 @@ export const getToastMessage = (
   }
   return toast.error("Something went wrong");
 };
+
+export const wait = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

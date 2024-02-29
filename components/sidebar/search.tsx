@@ -20,7 +20,7 @@ const Search = () => {
   }, 300);
 
   return (
-    <div className="relative w-full ">
+    <div className="relative w-[10rem]">
       <Input
         className="pl-8"
         onChange={(e) => handleSearch(e.target.value)}

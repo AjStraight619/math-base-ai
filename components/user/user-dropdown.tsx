@@ -4,6 +4,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
+import CustomTooltip from "../ui/custom-tooltip";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,15 +20,17 @@ type UserDropdownProps = {
 const UserDropdown = ({ user }: UserDropdownProps) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer">
-          <UserAvatar user={user} />
-          <span className="text-sm">
-            {user?.given_name} {user?.family_name}
-          </span>
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="">
+      <CustomTooltip tooltipMessage="User Options">
+        <DropdownMenuTrigger className="" asChild>
+          <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer ">
+            <UserAvatar user={user} />
+            <span className="text-sm">
+              {user?.given_name} {user?.family_name}
+            </span>
+          </div>
+        </DropdownMenuTrigger>
+      </CustomTooltip>
+      <DropdownMenuContent className="p-2">
         <motion.ul variants={ulVariants} animate="animate" initial="hidden">
           {userOptions.map((option) => {
             return (
