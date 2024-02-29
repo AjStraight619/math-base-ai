@@ -68,7 +68,7 @@ const SidebarToggleButton = ({
   return (
     <button
       onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      className="md:block hidden fixed -translate-y-1/2 top-1/2 left-52  z-50 p-2  rounded-lg"
+      className="md:block hidden fixed -translate-y-1/2 top-1/2 left-52 z-50 p-2  rounded-lg"
     >
       {isSidebarOpen ? "Close" : "Open"}
     </button>
