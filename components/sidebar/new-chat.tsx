@@ -2,7 +2,6 @@ import { createNewChat } from "@/actions/chat-actions";
 import { OptimisticChatAction } from "@/lib/types";
 import { getToastMessage } from "@/lib/utils";
 import { MessageCirclePlus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import CustomTooltip from "../ui/custom-tooltip";
 import SubmitButton from "../ui/submit-button";
@@ -12,8 +11,6 @@ type NewChatProps = {
 };
 
 const NewChat = ({ dispatch }: NewChatProps) => {
-  const { push } = useRouter();
-
   const handleCreateChat = useDebouncedCallback(async (formData: FormData) => {
     dispatch({
       type: "ADD",

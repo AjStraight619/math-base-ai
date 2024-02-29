@@ -2,6 +2,7 @@ import { ChatRequestOptions } from "ai";
 import { SendIcon } from "lucide-react";
 import { ChangeEvent, FormEvent, useEffect, useRef } from "react";
 import UploadFile from "../files/upload-file";
+import CustomTooltip from "../ui/custom-tooltip";
 import SubmitButton from "../ui/submit-button";
 import { Textarea } from "../ui/textarea";
 
@@ -45,7 +46,7 @@ const ChatInput = ({
       onSubmit={handleSubmit}
       className="fixed bottom-0 left-0 right-0 md:left-48 lg:left-0 mx-auto"
     >
-      <div className="shadow-md mx-auto p-2 w-full lg:w-[calc(100% - 12rem)] w-full md:max-w-xl relative z-50">
+      <div className="shadow-md mx-auto p-2 mb-2  w-full lg:w-[calc(100% - 12rem)] w-full md:max-w-xl relative z-50">
         <Textarea
           ref={textareaRef}
           value={input}
@@ -61,14 +62,18 @@ const ChatInput = ({
             scrollbarWidth: "none",
           }}
         />
-        <div className="absolute bottom-5 left-4">
-          <UploadFile />
-        </div>
-        <div className="absolute bottom-3 right-2">
-          <SubmitButton variant={null} size="icon">
-            <SendIcon size={20} />
-          </SubmitButton>
-        </div>
+        <CustomTooltip tooltipMessage="Upload file">
+          <div className="absolute bottom-5 left-4">
+            <UploadFile />
+          </div>
+        </CustomTooltip>
+        <CustomTooltip tooltipMessage="Send message">
+          <div className="absolute bottom-3 right-2">
+            <SubmitButton variant={null} size="icon">
+              <SendIcon size={20} />
+            </SubmitButton>
+          </div>
+        </CustomTooltip>
       </div>
     </form>
   );
