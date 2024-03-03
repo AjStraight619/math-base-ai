@@ -29,6 +29,5 @@ model ChatMessage {
   id      String  @id @default(uuid())
   chatId  String
   content String?
-
   Chat Chat @relation(fields: [chatId], references: [id])
 }

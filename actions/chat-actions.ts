@@ -17,6 +17,7 @@ export const createNewChat = async (formData: FormData) => {
         title: "New Chat-server",
       },
     });
+    
     if (newChat) {
       await wait(5000);
       return {

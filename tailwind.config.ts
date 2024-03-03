@@ -18,6 +18,10 @@ const config = {
         lg: "980px",
       },
     },
+    backgroundImage: {
+      "border-gradient":
+        "linear-gradient(to right, #AC6AFF, #FFC876, #FF776F, #7ADB78, #858DFF, #FF98E2)",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",

@@ -1,6 +1,5 @@
 "use client";
 import { liVariants, ulVariants, userOptions } from "@/lib/data";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
@@ -12,6 +11,8 @@ import {
 } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 import UserAvatar from "./avatar";
+
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 type UserDropdownProps = {
   user: KindeUser | null;
@@ -25,7 +26,7 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
           <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer ">
             <UserAvatar user={user} />
             <span className="text-sm">
-              {user?.given_name} {user?.family_name}
+              {user?.given_name + " " + user?.family_name}
             </span>
           </div>
         </DropdownMenuTrigger>

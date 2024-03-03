@@ -1,3 +1,4 @@
+import { addUserToDatabase, checkIfUserExists } from "@/actions/user-actions";
 import Logo from "@/components/landing-page/animated-logo";
 import Navbar from "@/components/landing-page/navbar";
 import {
@@ -9,11 +10,18 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function Home() {
-  const { isAuthenticated } = getKindeServerSession();
+  const { isAuthenticated, getUser } = getKindeServerSession();
+  const user = await getUser();
+  let dbUser;
+  dbUser = user ? await checkIfUserExists(user.id) : null;
+  if (!dbUser && user) {
+    await addUserToDatabase(user);
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-12 p-24">
       <Suspense fallback={<div>Loading...</div>}>
-        <Navbar />
+        <Navbar user={user} />
       </Suspense>
 
       <div className="pt-24 relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
