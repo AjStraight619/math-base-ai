@@ -1,5 +1,6 @@
 "use client";
 import { motion, useAnimate } from "framer-motion";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 const variants = {
@@ -18,6 +19,7 @@ const variants = {
 const AnimatedHeroSvg = () => {
   const [scope, animate] = useAnimate();
   const [isInitialAnimationDone, setIsInitialAnimationDone] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleInitialAnimation = async () => {
@@ -25,7 +27,7 @@ const AnimatedHeroSvg = () => {
         "#path1",
         {
           pathLength: [0, 1],
-          stroke: "black",
+          stroke: theme === "dark" ? "black" : "gray",
         },
         {
           duration: 10,
@@ -35,7 +37,7 @@ const AnimatedHeroSvg = () => {
       );
     };
     handleInitialAnimation();
-  }, [animate]);
+  }, [animate, theme]);
 
   //   useEffect(() => {
   //     if (!isInitialAnimationDone) return;

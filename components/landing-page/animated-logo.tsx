@@ -40,7 +40,6 @@ const Logo = () => {
 
   useEffect(() => {
     const currentScope = scope.current;
-    const abortController = new AbortController();
 
     if (currentScope) {
       const animatePaths = async () => {

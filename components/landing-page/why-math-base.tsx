@@ -11,10 +11,10 @@ const WhyMathBase = () => {
   };
 
   return (
-    <section className="mb-20 mt-32">
+    <section className="mb-20 mt-40">
       <SectionHeading>Why Math Base?</SectionHeading>
       <motion.p
-        className="text-center font-mono text-lg leading-6 tracking-wide mt-4 max-w-2xl text-white/70"
+        className="text-center font-mono text-lg leading-6 tracking-wide mt-4 sm:max-w-2xl dark:text-white/70 text-gray-950/80 w-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

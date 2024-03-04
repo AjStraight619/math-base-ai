@@ -1,5 +1,6 @@
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
+import { ModeToggle } from "../ui/mode-toggle";
 import UserDropdown from "../user/user-dropdown";
 
 type NavbarProps = {
@@ -14,8 +15,8 @@ const Navbar = ({ user }: NavbarProps) => {
           <Image src="/mathbase.svg" alt="Math Base" width={100} height={30} />
         </div>
         <div className=" flex gap-2 items-center">
-          <UserDropdown user={user} />
-          {/* <ModeToggle /> */}
+          {user && <UserDropdown user={user} />}
+          <ModeToggle />
         </div>
       </div>
     </nav>

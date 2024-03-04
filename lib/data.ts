@@ -123,6 +123,7 @@ export const features = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
     icon: React.createElement(SiOpenai),
+    backgroundImage: "url(https://via.placeholder.com/600x500)",
   },
   {
     title: "Wolfram Alpha",
@@ -130,6 +131,7 @@ export const features = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
     icon: React.createElement(SiWolfram),
+    backgroundImage: "url(/math.svg)",
   },
   {
     title: "Import/Export Notes",
@@ -137,6 +139,7 @@ export const features = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
     icon: React.createElement(NotebookPen),
+    backgroundImage: "url(/path.svgs)",
   },
   {
     title: "Collaboration Tools",
@@ -144,5 +147,6 @@ export const features = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
     icon: React.createElement(Users),
+    backgroundImage: "url(https://via.placeholder.com/600x500)",
   },
 ] as const;

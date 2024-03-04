@@ -52,7 +52,7 @@ const ChatInput = ({
           value={input}
           onChange={handleInputChange}
           placeholder="Type a message..."
-          className="w-full resize-none rounded-2xl pt-4 pl-9 pr-10 overflow-y-auto z-[999]"
+          className="w-full resize-none rounded-2xl pt-4 pl-9 pr-10 overflow-y-auto z-[999] text-base"
           style={{
             lineHeight: "1",
             minHeight: `${minHeight}px`,
@@ -63,13 +63,13 @@ const ChatInput = ({
           }}
         />
         <CustomTooltip tooltipMessage="Upload file">
-          <div className="absolute bottom-5 left-4">
+          <div className="absolute bottom-6 left-4">
             <UploadFile />
           </div>
         </CustomTooltip>
         <CustomTooltip tooltipMessage="Send message">
-          <div className="absolute bottom-3 right-2">
-            <SubmitButton variant={null} size="icon">
+          <div className="absolute bottom-4 right-2">
+            <SubmitButton variant={null} size={null}>
               <SendIcon size={20} />
             </SubmitButton>
           </div>

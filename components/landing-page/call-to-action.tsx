@@ -16,7 +16,7 @@ const CallToAction = async ({ user }: { user: KindeUser | null }) => {
       {(await isAuthenticated()) ? (
         <BorderGradient>
           <Link
-            className="group inline-flex items-center gap-2 px-3 py-3 rounded-md bg-black hover:bg-black/90 border transition-all"
+            className="group inline-flex items-center gap-2 px-3 py-3 rounded-md bg-black hover:bg-black/90 border transition-all text-black dark:text-gray-50"
             href="/dashboard"
           >
             Dashboard
@@ -24,15 +24,15 @@ const CallToAction = async ({ user }: { user: KindeUser | null }) => {
           </Link>
         </BorderGradient>
       ) : (
-        <div className="flex gap-2">
+        <div className="flex flex-col items-center justify-center gap-2">
           <BorderGradient>
-            <LoginLink className="group inline-flex items-center gap-2 px-3 py-3 rounded-md bg-black hover:bg-black/90 border transition-all">
+            <LoginLink className="group inline-flex items-center gap-2 px-3 py-3 rounded-md dark:bg-black bg-gray-50 hover:bg-gray-50/80  dark:hover:bg-black/90 border transition-all text-black dark:text-gray-50">
               Sign in
               <ArrowRight className="group-hover:translate-x-2 duration-300" />
             </LoginLink>
           </BorderGradient>
           <BorderGradient>
-            <RegisterLink className="group inline-flex items-center gap-2 px-3 py-3 rounded-md bg-black hover:bg-black/90 border transition-all">
+            <RegisterLink className="group inline-flex items-center gap-2 px-3 py-3 rounded-md dark:bg-black bg-gray-50 hover:bg-gray-50/80 dark:hover:bg-black/90 border transition-all text-black dark:text-gray-50">
               Sign up
               <ArrowRight className="group-hover:translate-x-2 duration-300" />
             </RegisterLink>

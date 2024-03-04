@@ -11,9 +11,7 @@ export const checkIfUserExists = async (userId: string) => {
       id: userId,
     },
   });
-  if (!user) {
-    return null;
-  }
+
   return user;
 };
 

@@ -22,7 +22,7 @@ const Search = () => {
   return (
     <div className="relative w-[10rem]">
       <Input
-        className="pl-8"
+        className="pl-8 text-base"
         onChange={(e) => handleSearch(e.target.value)}
         placeholder="Search..."
       />

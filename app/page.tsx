@@ -1,18 +1,22 @@
 import { addUserToDatabase, checkIfUserExists } from "@/actions/user-actions";
-import AnimatedMath from "@/components/landing-page/animated-math";
 import CallToAction from "@/components/landing-page/call-to-action";
 import Features from "@/components/landing-page/features";
 import Navbar from "@/components/landing-page/header";
 import Hero from "@/components/landing-page/hero";
 import WhyMathBase from "@/components/landing-page/why-math-base";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  if (!user) {
+    redirect("/api/auth/login");
+  }
   let dbUser;
   dbUser = user ? await checkIfUserExists(user.id) : null;
-  if (!dbUser && user) {
+  if (!dbUser) {
     await addUserToDatabase(user);
   }
 
@@ -22,9 +26,9 @@ export default async function Home() {
 
       <Hero />
       <CallToAction user={user} />
-      <div className="fixed top-1/2 -translate-y-1/2 right-[10rem] -z-50">
-        <AnimatedMath />
-      </div>
+      {/* <div className="fixed top-1/2 -translate-y-1/2  -z-50">
+        <Circles />
+      </div> */}
       <WhyMathBase />
       <Features />
     </main>

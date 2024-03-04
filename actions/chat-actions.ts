@@ -17,7 +17,7 @@ export const createNewChat = async (formData: FormData) => {
         title: "New Chat-server",
       },
     });
-    
+
     if (newChat) {
       await wait(5000);
       return {
@@ -73,5 +73,29 @@ export const getChatMetaData = async () => {
     };
   } finally {
     revalidatePath("/chat");
+  }
+};
+
+export const getChatById = async (chatId: string) => {
+  try {
+    const userId = await getUserId();
+    if (!userId) redirect("/api/auth/login");
+    const chat = await prisma.chat.findFirst({
+      where: {
+        id: chatId,
+        userId,
+      },
+      include: {
+        messages: {
+          orderBy: {},
+        },
+      },
+    });
+  } catch (err) {
+    const error = getErrorMessage(err);
+    return {
+      error,
+      chat: null,
+    };
   }
 };
