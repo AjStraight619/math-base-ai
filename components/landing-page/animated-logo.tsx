@@ -28,8 +28,6 @@ const Logo = () => {
   const [scope, animate] = useAnimate();
   const { theme } = useTheme();
 
-  useEffect(() => {}, []);
-
   const paths = useMemo(
     () =>
       uniquePathProperties.map((path) => ({

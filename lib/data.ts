@@ -4,8 +4,11 @@ import {
   LogOut,
   NotebookPen,
   Settings,
+  Users,
 } from "lucide-react";
 import React from "react";
+
+import { SiOpenai, SiWolfram } from "react-icons/si";
 
 export const links = [
   {
@@ -112,3 +115,34 @@ export const repaths = [
     stroke: "#FFF",
   },
 ];
+
+export const features = [
+  {
+    title: "GPT 4 Integration",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
+    icon: React.createElement(SiOpenai),
+  },
+  {
+    title: "Wolfram Alpha",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
+    icon: React.createElement(SiWolfram),
+  },
+  {
+    title: "Import/Export Notes",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
+    icon: React.createElement(NotebookPen),
+  },
+  {
+    title: "Collaboration Tools",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.",
+    icon: React.createElement(Users),
+  },
+] as const;

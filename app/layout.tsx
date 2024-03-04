@@ -1,6 +1,5 @@
 import { getChatMetaData } from "@/actions/chat-actions";
 import Sidebar from "@/components/sidebar/sidebar";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -33,7 +32,6 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             {children}
-            <ModeToggle />
             <Toaster position="bottom-center" />
           </ThemeProvider>
         </body>
