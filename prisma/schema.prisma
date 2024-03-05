@@ -28,7 +28,7 @@ model Chat {
 model ChatMessage {
   id        String   @id @default(uuid())
   chatId    String
-  content   String?
+  content   String?  @db.Text
   Chat      Chat     @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -23,6 +23,7 @@ const ChatInput = ({
   handleSubmit,
 }: ChatInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const minHeight = 40;
   const maxHeight = 200;
 
@@ -41,8 +42,16 @@ const ChatInput = ({
     }
   }, [input]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      formRef.current?.dispatchEvent(new Event("submit", { cancelable: true }));
+    }
+  };
+
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       className="fixed bottom-0 left-0 right-0 md:left-48 lg:left-0 mx-auto"
     >
@@ -52,7 +61,7 @@ const ChatInput = ({
           value={input}
           onChange={handleInputChange}
           placeholder="Type a message..."
-          className="w-full resize-none rounded-2xl pt-4 pl-9 pr-10 overflow-y-auto z-[999] text-base"
+          className="w-full resize-none rounded-2xl pt-6 pl-9 pr-10 overflow-y-auto z-[999] text-[16px]"
           style={{
             lineHeight: "1",
             minHeight: `${minHeight}px`,
@@ -61,6 +70,7 @@ const ChatInput = ({
             overflowY: "auto",
             scrollbarWidth: "none",
           }}
+          onKeyDown={handleKeyDown}
         />
         <CustomTooltip tooltipMessage="Upload file">
           <div className="absolute bottom-6 left-4">

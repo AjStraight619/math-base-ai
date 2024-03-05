@@ -39,11 +39,13 @@ const Logo = () => {
   );
 
   useEffect(() => {
+    let isCancelled = false;
     const currentScope = scope.current;
 
     if (currentScope) {
       const animatePaths = async () => {
         for (const path of paths) {
+          if (isCancelled) return;
           const {
             id,
             pathLength,
@@ -84,6 +86,10 @@ const Logo = () => {
 
       animatePaths();
     }
+
+    return () => {
+      isCancelled = true;
+    };
   }, [animate, scope, paths]);
 
   return (

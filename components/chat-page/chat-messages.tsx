@@ -1,4 +1,10 @@
-const ChatMessage = () => {
+import { Message } from "ai";
+
+type ChatMessageProps = {
+  messages: Message[];
+};
+
+const ChatMessage = ({ messages }: ChatMessageProps) => {
   return (
     <div className="py-8">
       {" "}
