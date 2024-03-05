@@ -16,9 +16,10 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 type UserDropdownProps = {
   user: KindeUser | null;
+  mostRecentChatId?: string;
 };
 
-const UserDropdown = ({ user }: UserDropdownProps) => {
+const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
   return (
     <DropdownMenu>
       <CustomTooltip tooltipMessage="User Options">
@@ -43,7 +44,11 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
                 >
                   <Link
                     className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
-                    href={option.path}
+                    href={
+                      option.path === "/chat"
+                        ? option.path + mostRecentChatId
+                        : option.path
+                    }
                   >
                     {option.icon}
                     {option.name}

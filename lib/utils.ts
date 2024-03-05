@@ -44,3 +44,26 @@ export const getToastMessage = (
 
 export const wait = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Creates a snippet from the provided content.
+ *
+ * @param content The full text content from which to create the snippet.
+ * @param maxLength The maximum length of the snippet. Defaults to 100 characters.
+ * @returns A string representing the snippet.
+ */
+export const createSnippet = (
+  content: string,
+  maxLength: number = 100
+): string => {
+  content = content.trim();
+
+  if (content.length <= maxLength) {
+    return content;
+  }
+
+  const lastSpaceIndex = content.lastIndexOf(" ", maxLength);
+  const snippetEndIndex = lastSpaceIndex > 0 ? lastSpaceIndex : maxLength;
+
+  return `${content.substring(0, snippetEndIndex)}...`;
+};

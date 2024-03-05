@@ -1,10 +1,15 @@
 "use client";
+import { Chat } from "@/lib/types";
 import { useChat } from "ai/react";
 import { useState } from "react";
 import ChatInput from "./chat-input";
 import ChatMessage from "./chat-messages";
 
-const Chat = () => {
+type ChatProps = {
+  chat: Chat;
+};
+
+const Chat = ({ chat }: ChatProps) => {
   const [error, setError] = useState("");
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     onError: (err) => setError(err.message),

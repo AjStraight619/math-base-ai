@@ -4,7 +4,7 @@
 //   error?: string | null;
 // };
 
-import { getChatMetaData } from "@/actions/chat-actions";
+import { getChatById, getChatMetaData } from "@/actions/chat-actions";
 import { Prisma } from "@prisma/client";
 
 export type OptimisticChat = {
@@ -20,3 +20,5 @@ export type OptimisticChatAction = {
 };
 
 export type SidebarMetaData = Prisma.PromiseReturnType<typeof getChatMetaData>;
+
+export type Chat = Prisma.PromiseReturnType<typeof getChatById>;

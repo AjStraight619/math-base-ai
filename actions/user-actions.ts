@@ -12,6 +12,8 @@ export const checkIfUserExists = async (userId: string) => {
     },
   });
 
+  console.log("This is the user in the db: ", user);
+
   return user;
 };
 

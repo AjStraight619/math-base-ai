@@ -1,3 +1,4 @@
+import { getMostRecentChatId } from "@/actions/chat-actions";
 import { addUserToDatabase, checkIfUserExists } from "@/actions/user-actions";
 import CallToAction from "@/components/landing-page/call-to-action";
 import Features from "@/components/landing-page/features";
@@ -14,15 +15,22 @@ export default async function Home() {
   if (!user) {
     redirect("/api/auth/login");
   }
+
   let dbUser;
+  let mostRecentChatId;
   dbUser = user ? await checkIfUserExists(user.id) : null;
+
   if (!dbUser) {
     await addUserToDatabase(user);
   }
 
+  if (dbUser) {
+    mostRecentChatId = await getMostRecentChatId(dbUser?.id);
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Navbar user={user} />
+      <Navbar user={user} mostRecentChatId={mostRecentChatId} />
 
       <Hero />
       <CallToAction user={user} />

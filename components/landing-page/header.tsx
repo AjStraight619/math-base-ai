@@ -5,9 +5,10 @@ import UserDropdown from "../user/user-dropdown";
 
 type NavbarProps = {
   user: KindeUser | null;
+  mostRecentChatId?: string;
 };
 
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = ({ user, mostRecentChatId }: NavbarProps) => {
   return (
     <nav className="fixed left-0 top-0 w-full h-16 border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-lg dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit   lg:dark:bg-zinc-800/30 z-50">
       <div className="container mx-auto flex h-full items-center justify-between px-6 relative">
@@ -15,7 +16,9 @@ const Navbar = ({ user }: NavbarProps) => {
           <Image src="/mathbase.svg" alt="Math Base" width={100} height={30} />
         </div>
         <div className=" flex gap-2 items-center">
-          {user && <UserDropdown user={user} />}
+          {user && (
+            <UserDropdown user={user} mostRecentChatId={mostRecentChatId} />
+          )}
           <ModeToggle />
         </div>
       </div>

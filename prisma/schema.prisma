@@ -14,6 +14,8 @@ model User {
   firstName String
   lastName  String
   fullName  String
+  chats     Chat[]
+  notes     Note[]
 }
 
 model Chat {
@@ -23,13 +25,40 @@ model Chat {
   messages  ChatMessage[]
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  User      User          @relation(fields: [userId], references: [id])
 }
 
 model ChatMessage {
   id        String   @id @default(uuid())
   chatId    String
   content   String?  @db.Text
+  role      Role
   Chat      Chat     @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id      String        @id @default(uuid())
+  userId  String
+  title   String
+  content NoteContent[]
+  User    User          @relation(fields: [userId], references: [id])
+}
+
+model NoteContent {
+  id      String  @id @default(uuid())
+  userId  String
+  content String  @db.Text
+  Note    Note?   @relation(fields: [noteId], references: [id])
+  noteId  String?
+}
+
+enum Role {
+  system
+  user
+  assistant
+  function
+  data
+  tool
 }

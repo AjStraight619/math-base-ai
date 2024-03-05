@@ -1,12 +1,12 @@
 "use server";
 
-import { getErrorMessage, wait } from "@/lib/utils";
+import { getErrorMessage } from "@/lib/utils";
 import { prisma } from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getUserId } from "./user-actions";
 
-export const createNewChat = async (formData: FormData) => {
+export const createNewChat = async () => {
   try {
     const userId = (await getUserId()) as unknown as string;
     if (!userId) redirect("/api/auth/login");
@@ -19,7 +19,7 @@ export const createNewChat = async (formData: FormData) => {
     });
 
     if (newChat) {
-      await wait(5000);
+      // await wait(5000);
       return {
         success: true,
         chatId: newChat.id,
@@ -85,12 +85,21 @@ export const getChatById = async (chatId: string) => {
         id: chatId,
         userId,
       },
+      orderBy: {
+        updatedAt: "asc",
+      },
       include: {
         messages: {
-          orderBy: {},
+          orderBy: {
+            updatedAt: "desc",
+          },
         },
       },
     });
+    return {
+      chat,
+      error: null,
+    };
   } catch (err) {
     const error = getErrorMessage(err);
     return {
@@ -98,4 +107,20 @@ export const getChatById = async (chatId: string) => {
       chat: null,
     };
   }
+};
+
+export const getMostRecentChatId = async (userId: string) => {
+  const mostRecentChat = await prisma.chat.findFirst({
+    where: {
+      userId,
+    },
+    orderBy: {
+      updatedAt: "asc",
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return mostRecentChat?.id;
 };
