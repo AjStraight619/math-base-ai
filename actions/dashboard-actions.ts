@@ -1,35 +1,39 @@
 "use server";
 
+import { createSnippet } from "@/lib/utils";
 import { prisma } from "@/prisma/prisma";
 import { getUserId } from "./user-actions";
 
 export const getAllChatsByUserId = async () => {
-    const userId = await getUserId();
-  
-    const chats = await prisma.chat.findMany({
-      where: {
-        userId,
-      },
-      orderBy: {
-        updatedAt: "asc",
-      },
-      select: {
-        id: true, // Select the id
-        title: true, // Select the title
-        messages: {
-          take: 1,
-          orderBy: {
-            updatedAt: "asc",
-          },
-          select: {
-            content: true, 
-          },
+  const userId = await getUserId();
+
+  const chats = await prisma.chat.findMany({
+    where: {
+      userId,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    select: {
+      id: true,
+      title: true,
+      messages: {
+        take: 1,
+        orderBy: {
+          updatedAt: "desc",
+        },
+        select: {
+          content: true,
         },
       },
-    });
-  
-    return chats.map((chat) => ({
-        ...chat,
-        messages: 
-    }))
-  };
+    },
+  });
+
+  const chatsWithSnippets = chats.map((chat) => ({
+    ...chat,
+    messages: chat.messages.map((msg) => ({
+      ...msg,
+      content: createSnippet(msg.content || ""),
+    })),
+  }));
+};
