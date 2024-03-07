@@ -8,14 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String  @id @unique
-  email     String  @unique
+  id        String   @id @unique
+  email     String   @unique
   image     String?
   firstName String
   lastName  String
   fullName  String
   chats     Chat[]
-  notes     Note[]
+  folder    Folder[]
 }
 
 model Chat {
@@ -38,12 +38,19 @@ model ChatMessage {
   updatedAt DateTime @updatedAt
 }
 
+model Folder {
+  id     String @id @default(uuid())
+  userId String
+  notes  Note[]
+  User   User   @relation(fields: [userId], references: [id])
+}
+
 model Note {
-  id      String        @id @default(uuid())
-  userId  String
-  title   String
-  content NoteContent[]
-  User    User          @relation(fields: [userId], references: [id])
+  id       String        @id @default(uuid())
+  folderId String
+  title    String
+  content  NoteContent[]
+  Folder   Folder        @relation(fields: [folderId], references: [id])
 }
 
 model NoteContent {
