@@ -80,12 +80,16 @@ const SidebarToggleButton = ({
   isHovering,
   setIsHovering,
 }: SidebarToggleButtonProps) => {
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    setIsHovering(false);
+  };
   return (
     <CustomTooltip
       tooltipMessage={`${isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}`}
     >
       <motion.button
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        onClick={handleSidebarToggle}
         className={`fixed top-1/2  z-50  rounded-lg translate-y-[-50%] md:block hidden ${
           isSidebarOpen ? "left-48" : "left-[3px]"
         }`}

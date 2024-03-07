@@ -20,6 +20,9 @@ type UserDropdownProps = {
 };
 
 const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
+  const mostRecentChatPath = mostRecentChatId
+    ? `/chat/${mostRecentChatId}`
+    : "/chat/first-chat";
   return (
     <DropdownMenu>
       <CustomTooltip tooltipMessage="User Options">
@@ -45,9 +48,7 @@ const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
                   <Link
                     className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
                     href={
-                      option.path === "/chat"
-                        ? option.path + mostRecentChatId
-                        : option.path
+                      option.path === "/chat" ? mostRecentChatPath : option.path
                     }
                   >
                     {option.icon}

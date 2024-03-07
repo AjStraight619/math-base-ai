@@ -22,3 +22,12 @@ export type OptimisticChatAction = {
 export type SidebarMetaData = Prisma.PromiseReturnType<typeof getChatMetaData>;
 
 export type Chat = Prisma.PromiseReturnType<typeof getChatById>;
+
+export type ChatWithSnippet = {
+  messages: {
+    content: string;
+  };
+  id: string;
+  title: string;
+  updatedAt: Date;
+};

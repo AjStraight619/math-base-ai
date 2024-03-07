@@ -17,6 +17,7 @@ export const getAllChatsByUserId = async () => {
     select: {
       id: true,
       title: true,
+      updatedAt: true,
       messages: {
         take: 1,
         orderBy: {
@@ -36,4 +37,6 @@ export const getAllChatsByUserId = async () => {
       content: createSnippet(msg.content || ""),
     })),
   }));
+
+  return chatsWithSnippets;
 };

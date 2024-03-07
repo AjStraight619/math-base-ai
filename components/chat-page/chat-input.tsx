@@ -27,7 +27,6 @@ const ChatInput = ({
   const minHeight = 40;
   const maxHeight = 200;
 
-  // Dynamically adjust the height of the textarea based on the content
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -45,7 +44,9 @@ const ChatInput = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      formRef.current?.dispatchEvent(new Event("submit", { cancelable: true }));
+      formRef.current?.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
     }
   };
 
