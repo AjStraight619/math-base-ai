@@ -99,7 +99,17 @@ const SidebarToggleButton = ({
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        {isSidebarOpen ? <ChevronLeft /> : <ChevronRight />}
+        {isSidebarOpen ? (
+          isHovering ? (
+            <ChevronLeft />
+          ) : (
+            <div className="w-[8px]">
+              <motion.div className="h-6 rounded-md dark:bg-primary/70 cursor-pointer w-[3px] ml-3"></motion.div>
+            </div>
+          )
+        ) : (
+          <ChevronRight />
+        )}
       </motion.button>
     </CustomTooltip>
   );

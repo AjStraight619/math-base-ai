@@ -18,8 +18,6 @@ export default async function DashboardPage({
 
   const userId = await getUserId();
 
-  console.log(userId);
-
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 

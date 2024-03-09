@@ -1,5 +1,6 @@
 import { getRecentChatsDispay } from "@/actions/chat-actions";
 import ChatActivity from "./chat-activity";
+import NoteActivity from "./note-acitvity";
 import SectionDivider from "./section-divider";
 
 type ActivityFeedProps = {
@@ -13,6 +14,7 @@ const ActivityFeed = async ({ userId }: ActivityFeedProps) => {
     <div className="flex flex-col items-center">
       <SectionDivider>Activity</SectionDivider>
       <ChatActivity recentChatActivity={recentChatActivity} />
+      <NoteActivity />
     </div>
   );
 };
