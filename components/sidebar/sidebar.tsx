@@ -21,6 +21,7 @@ const buttonVariants = {
   open: { x: 0, ease: "easeOut" },
   closed: { x: "100%" },
 };
+
 const Sidebar = ({ chats }: SidebarProps) => {
   const { user, isLoading } = useKindeBrowserClient();
   const { isSidebarOpen, setIsSidebarOpen } = useSidebarContext();
