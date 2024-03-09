@@ -53,9 +53,10 @@ export const wait = (ms: number) =>
  * @returns A string representing the snippet.
  */
 export const createSnippet = (
-  content: string,
+  content: string | null,
   maxLength: number = 100
 ): string => {
+  if (!content) return "";
   content = content.trim();
 
   if (content.length <= maxLength) {

@@ -124,3 +124,35 @@ export const getMostRecentChatId = async (userId: string) => {
 
   return mostRecentChat?.id;
 };
+
+export const getRecentChatsDispay = async (userId: string) => {
+  try {
+    const mostRecentChats = await prisma.chat.findMany({
+      where: {
+        userId,
+      },
+      take: 4,
+      orderBy: {
+        updatedAt: "desc",
+      },
+      include: {
+        messages: {
+          orderBy: {
+            updatedAt: "desc",
+          },
+        },
+      },
+    });
+
+    return {
+      mostRecentChats,
+      error: null,
+    };
+  } catch (err) {
+    const error = getErrorMessage(err);
+    return {
+      mostRecentChats: null,
+      error,
+    };
+  }
+};

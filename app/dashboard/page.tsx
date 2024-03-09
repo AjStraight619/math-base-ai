@@ -1,6 +1,9 @@
 import { getUserId } from "@/actions/user-actions";
-import UserActivityFetcher from "@/components/dashboard-page/user-activity-fetcher";
-import { Suspense } from "react";
+import LayoutWrapper from "@/components/common/layout-wrapper";
+import ActivityFeed from "@/components/dashboard-page/acivity-feed";
+import WelcomeBanner from "@/components/dashboard-page/welcome-banner";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 type DashboardPageProps = {
   searchParams: {
@@ -17,11 +20,22 @@ export default async function DashboardPage({
 
   console.log(userId);
 
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/api/auth/login");
+  }
+
   return (
-    <main className="min-h-screen flex flex-col justify-between items-center py-24 px-8 md:px-12">
-      <Suspense fallback={<div>Loading...</div>}>
+    <main className="min-h-screen flex flex-col items-center justify-between py-24 px-8 md:px-12 w-full">
+      {/* <Suspense fallback={<DashboardSkeleton />}>
         <UserActivityFetcher query={searchParams.query} />
-      </Suspense>
+      </Suspense> */}
+      <LayoutWrapper>
+        <WelcomeBanner firstname={user?.given_name} />
+        <ActivityFeed userId={user?.id} />
+      </LayoutWrapper>
     </main>
   );
 }

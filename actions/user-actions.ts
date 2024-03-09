@@ -1,5 +1,4 @@
 "use server";
-
 import { prisma } from "@/prisma/prisma";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
@@ -13,7 +12,6 @@ export const checkIfUserExists = async (userId: string) => {
   });
 
   console.log("This is the user in the db: ", user);
-
   return user;
 };
 

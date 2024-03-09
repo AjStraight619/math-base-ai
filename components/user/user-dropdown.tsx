@@ -23,6 +23,7 @@ const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
   const mostRecentChatPath = mostRecentChatId
     ? `/chat/${mostRecentChatId}`
     : "/chat/first-chat";
+
   return (
     <DropdownMenu>
       <CustomTooltip tooltipMessage="User Options">

@@ -4,8 +4,13 @@
 //   error?: string | null;
 // };
 
-import { getChatById, getChatMetaData } from "@/actions/chat-actions";
-import { Prisma } from "@prisma/client";
+import {
+  getChatById,
+  getChatMetaData,
+  getRecentChatsDispay,
+} from "@/actions/chat-actions";
+import { getFoldersWithNotes } from "@/actions/folder-actions";
+import { Folder, Note, NoteContent, Prisma } from "@prisma/client";
 
 export type OptimisticChat = {
   id: string;
@@ -31,3 +36,23 @@ export type ChatWithSnippet = {
   title: string;
   updatedAt: Date;
 };
+
+export type FoldersWithNotes = Prisma.PromiseReturnType<
+  typeof getFoldersWithNotes
+>;
+
+type NoteContentWithSnippet = Omit<NoteContent, "content"> & {
+  content: string;
+};
+
+export type NoteWithSnippets = Omit<Note, "noteContents"> & {
+  noteContents: NoteContentWithSnippet[];
+};
+
+export type FolderWithNotesSnippets = Omit<Folder, "notes"> & {
+  notes: NoteWithSnippets[];
+};
+
+export type RecentChatsDisplayWithChatSnippets = Prisma.PromiseReturnType<
+  typeof getRecentChatsDispay
+>;

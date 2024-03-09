@@ -39,26 +39,33 @@ model ChatMessage {
 }
 
 model Folder {
-  id     String @id @default(uuid())
-  userId String
-  notes  Note[]
-  User   User   @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  notes     Note[]
+  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Note {
-  id       String        @id @default(uuid())
-  folderId String
-  title    String
-  content  NoteContent[]
-  Folder   Folder        @relation(fields: [folderId], references: [id])
+  id           String        @id @default(uuid())
+  folderId     String
+  title        String
+  noteContents NoteContent[]
+  Folder       Folder        @relation(fields: [folderId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model NoteContent {
-  id      String  @id @default(uuid())
-  userId  String
-  content String  @db.Text
-  Note    Note?   @relation(fields: [noteId], references: [id])
-  noteId  String?
+  id        String   @id @default(uuid())
+  userId    String
+  content   String   @db.Text
+  Note      Note?    @relation(fields: [noteId], references: [id])
+  noteId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {

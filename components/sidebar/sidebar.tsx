@@ -1,5 +1,6 @@
 "use client";
 
+import { useSidebarContext } from "@/context/sidebar-presence-context";
 import { SidebarMetaData } from "@/lib/types";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,7 +23,7 @@ const buttonVariants = {
 };
 const Sidebar = ({ chats }: SidebarProps) => {
   const { user, isLoading } = useKindeBrowserClient();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebarContext();
   const [isHovering, setIsHovering] = useState(false);
   const pathname = usePathname();
   if (pathname === "/") return null;
@@ -44,7 +45,7 @@ const Sidebar = ({ chats }: SidebarProps) => {
             animate={{ x: 0 }}
             exit={{ x: -300 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            className={`fixed top-0 left-0 w-48 h-screen border border-r p-2 pb-4 hidden md:block ${
+            className={`fixed top-0 left-0 w-48 h-screen border border-r p-2 pb-4 hidden md:block dark:bg-neutral-950 bg-gray-100 ${
               isHovering ? "opacity-65" : ""
             }`}
           >
