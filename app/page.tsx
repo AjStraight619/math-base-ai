@@ -38,10 +38,8 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Navbar user={user} mostRecentChatId={mostRecentChatId} />
-
       <Hero />
       <CallToAction user={user} />
-
       <WhyMathBase />
       <Features />
     </main>

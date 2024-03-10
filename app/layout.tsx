@@ -23,7 +23,7 @@ export default async function RootLayout({
   const chats = await getChatMetaData();
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning={true}>
         <body className={`${inter.className} relative bg-background`}>
           <ThemeProvider
             attribute="class"

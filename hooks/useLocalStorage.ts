@@ -1,43 +1,44 @@
-import { getErrorMessage } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-function useLocalStorage<T>(
+export function useLocalStorage<T>(
   key: string,
   initialValue: T
-): [T, (value: T) => void] {
-  const [error, setError] = useState("");
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      const err = getErrorMessage(error);
-      setError(err);
-      return initialValue;
-    }
-  });
+): [T, Dispatch<SetStateAction<T>>] {
+  const [storedValue, setStoredValue] = useState(initialValue);
+  const [firstLoadDone, setFirstLoadDone] = useState(false);
 
   useEffect(() => {
-    try {
-      const valueToStore = JSON.stringify(storedValue);
-      window.localStorage.setItem(key, valueToStore);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [key, storedValue]);
+    const fromLocal = () => {
+      if (typeof window === "undefined") {
+        return initialValue;
+      }
+      try {
+        const item = window.localStorage.getItem(key);
+        return item ? (JSON.parse(item) as T) : initialValue;
+      } catch (error) {
+        console.error(error);
+        return initialValue;
+      }
+    };
 
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    setStoredValue(fromLocal);
 
-  return [storedValue, setValue];
+    setFirstLoadDone(true);
+  }, [initialValue, key]);
+
+  useEffect(() => {
+    if (!firstLoadDone) {
+      return;
+    }
+
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [storedValue, firstLoadDone, key]);
+
+  return [storedValue, setStoredValue];
 }
-
-export default useLocalStorage;

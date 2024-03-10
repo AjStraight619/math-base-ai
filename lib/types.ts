@@ -10,6 +10,7 @@ import {
   getRecentChatsDispay,
 } from "@/actions/chat-actions";
 import { getFoldersWithNotes } from "@/actions/folder-actions";
+import { getRecentNoteDisplay } from "@/actions/note-actions";
 import { Folder, Note, NoteContent, Prisma } from "@prisma/client";
 
 export type OptimisticChat = {
@@ -53,6 +54,17 @@ export type FolderWithNotesSnippets = Omit<Folder, "notes"> & {
   notes: NoteWithSnippets[];
 };
 
-export type RecentChatsDisplayWithChatSnippets = Prisma.PromiseReturnType<
+export type RecentChatActivity = Prisma.PromiseReturnType<
   typeof getRecentChatsDispay
 >;
+
+export type RecentNoteActivity = Prisma.PromiseReturnType<
+  typeof getRecentNoteDisplay
+>;
+
+export type ActivityItem = {
+  id: string;
+  title: string;
+  updatedAt: Date;
+  firstContent: string;
+};

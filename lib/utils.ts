@@ -68,3 +68,10 @@ export const createSnippet = (
 
   return `${content.substring(0, snippetEndIndex)}...`;
 };
+
+export const getMonthAndDay = (date: Date) => {
+  const dateStr = date.toDateString();
+  const [_, month, day, __] = dateStr.split(" ");
+
+  return `${month} ${day}`;
+};

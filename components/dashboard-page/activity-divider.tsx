@@ -7,7 +7,7 @@ type ActivityDividerProps = {
 
 const ActivityDivider = ({ children }: ActivityDividerProps) => {
   return (
-    <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 space-y-1 w-full">
+    <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 space-y-1 w-full mb-2">
       <div className="text-primary-foreground text-center sm:text-left">
         {children}
       </div>
