@@ -20,10 +20,37 @@ export type OptimisticChat = {
   error?: string | null;
 };
 
-export type OptimisticChatAction = {
-  type: "ADD" | "REMOVE" | "UPDATE" | "PENDING" | "ERROR";
+export type AddAction = {
+  type: "ADD";
   payload: OptimisticChat;
 };
+
+export type RemoveAction = {
+  type: "REMOVE";
+  payload: string; // Only the chat ID
+};
+
+export type UpdateAction = {
+  type: "UPDATE";
+  payload: OptimisticChat;
+};
+
+export type PendingAction = {
+  type: "PENDING";
+  payload: OptimisticChat;
+};
+
+export type ErrorAction = {
+  type: "ERROR";
+  payload: OptimisticChat;
+};
+
+export type OptimisticChatAction =
+  | AddAction
+  | RemoveAction
+  | UpdateAction
+  | PendingAction
+  | ErrorAction;
 
 export type SidebarMetaData = Prisma.PromiseReturnType<typeof getChatMetaData>;
 

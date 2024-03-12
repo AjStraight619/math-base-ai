@@ -40,7 +40,7 @@ export const userOptions = [
     icon: React.createElement(NotebookPen),
   },
   {
-    path: "/settings",
+    path: "/dashboard/profile",
     name: "Settings",
     icon: React.createElement(Settings),
   },
@@ -50,7 +50,7 @@ export const userOptions = [
     name: "Logout",
     icon: React.createElement(LogOut),
   },
-] as const;
+];
 
 export const ulVariants = {
   hidden: {
@@ -150,3 +150,14 @@ export const features = [
     backgroundImage: "url(https://via.placeholder.com/600x500)",
   },
 ] as const;
+
+export const dashboardLinks = [
+  {
+    name: "Folders",
+    path: "/dashboard/folders",
+  },
+  {
+    name: "Chat",
+    path: "/chat",
+  },
+];

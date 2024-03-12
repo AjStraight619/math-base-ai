@@ -24,6 +24,18 @@ const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
     ? `/chat/${mostRecentChatId}`
     : "/chat/first-chat";
 
+  const userProfilePath = `/dashboard/profile/${user?.id}`;
+
+  // Dynamically update paths for options based on user data
+  const updatedUserOptions = userOptions.map((option) => {
+    if (option.name === "Chat") {
+      return { ...option, path: mostRecentChatPath };
+    } else if (option.name === "Settings") {
+      return { ...option, path: userProfilePath };
+    }
+    return option;
+  });
+
   return (
     <DropdownMenu>
       <CustomTooltip tooltipMessage="User Options">
@@ -38,28 +50,24 @@ const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
       </CustomTooltip>
       <DropdownMenuContent className="p-2">
         <motion.ul variants={ulVariants} animate="animate" initial="hidden">
-          {userOptions.map((option) => {
-            return (
-              <React.Fragment key={option.name}>
-                <motion.li
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  variants={liVariants}
+          {updatedUserOptions.map((option) => (
+            <React.Fragment key={option.name}>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variants={liVariants}
+              >
+                <Link
+                  className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
+                  href={option.path}
                 >
-                  <Link
-                    className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
-                    href={
-                      option.path === "/chat" ? mostRecentChatPath : option.path
-                    }
-                  >
-                    {option.icon}
-                    {option.name}
-                  </Link>
-                </motion.li>
-                {option.name === "Note" && <Separator className="my-2" />}
-              </React.Fragment>
-            );
-          })}
+                  {option.icon}
+                  {option.name}
+                </Link>
+              </motion.li>
+              {option.name === "Note" && <Separator className="my-2" />}
+            </React.Fragment>
+          ))}
         </motion.ul>
       </DropdownMenuContent>
     </DropdownMenu>

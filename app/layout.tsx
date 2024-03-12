@@ -35,7 +35,7 @@ export default async function RootLayout({
               <Sidebar chats={chats} />
               {children}
             </SidebarPresenceProvider>
-            <Toaster position="bottom-center" />
+            <Toaster position="top-center" />
           </ThemeProvider>
         </body>
       </html>

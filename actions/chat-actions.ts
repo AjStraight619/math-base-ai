@@ -6,6 +6,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getUserId } from "./user-actions";
 
+type DeleteChatResponse = {
+  success: boolean;
+  error: string | null;
+};
+
 export const createNewChat = async () => {
   try {
     const userId = (await getUserId()) as unknown as string;
@@ -154,5 +159,42 @@ export const getRecentChatsDispay = async (userId: string) => {
       mostRecentChats: null,
       error,
     };
+  }
+};
+
+export const deleteChat = async (
+  formData: FormData
+): Promise<DeleteChatResponse | undefined> => {
+  const userId = await getUserId();
+  if (!userId) return;
+
+  const chatId = formData.get("chatId") as unknown as string;
+
+  try {
+    await prisma.$transaction([
+      prisma.chatMessage.deleteMany({
+        where: {
+          chatId,
+        },
+      }),
+
+      prisma.chat.delete({
+        where: {
+          id: chatId,
+        },
+      }),
+    ]);
+    return {
+      success: true,
+      error: null,
+    };
+  } catch (err) {
+    const error = getErrorMessage(err);
+    return {
+      success: false,
+      error: error,
+    };
+  } finally {
+    revalidatePath("/chat");
   }
 };
