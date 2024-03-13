@@ -18,31 +18,29 @@ const SectionDivider = ({
       <h2 className="text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-800">
         {children}
       </h2>
-      <div className="md:self-end md:mr-2 flex flex-row items-center gap-1">
+      <div className="md:self-end md:mr-2 flex flex-row items-center">
         <CustomTooltip tooltipMessage="Grid View">
           <Button
             onClick={() => setDataView("grid")}
-            size="icon"
             variant="ghost"
+            className={`${
+              dataView === "grid" ? "text-primary" : "text-gray-500"
+            } gap-1`}
           >
-            <LayoutGrid
-              className={`${
-                dataView === "grid" ? "text-primary" : "text-gray-500"
-              }`}
-            />
+            <LayoutGrid />
+            Grid
           </Button>
         </CustomTooltip>
         <CustomTooltip tooltipMessage="List View">
           <Button
             onClick={() => setDataView("list")}
-            size="icon"
             variant="ghost"
+            className={`${
+              dataView === "list" ? "text-primary" : "text-gray-500"
+            } gap-1`}
           >
-            <List
-              className={`${
-                dataView === "list" ? "text-primary" : "text-gray-500"
-              }`}
-            />
+            <List />
+            List
           </Button>
         </CustomTooltip>
       </div>
