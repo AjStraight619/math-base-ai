@@ -23,6 +23,7 @@ const buttonVariants = {
 };
 
 const Sidebar = ({ chats }: SidebarProps) => {
+  const { chatMetaData, error } = chats;
   const { user, isLoading } = useKindeBrowserClient();
   const { isSidebarOpen, setIsSidebarOpen } = useSidebarContext();
   const [isHovering, setIsHovering] = useState(false);
@@ -30,6 +31,11 @@ const Sidebar = ({ chats }: SidebarProps) => {
   if (pathname === "/") return null;
   const isChatPath = pathname.includes("/chat/");
   const isDashboardPath = pathname.includes("/dashboard");
+
+  const mostRecentChatId =
+    chats.error === null && chats.chatMetaData
+      ? chats.chatMetaData[0]?.id
+      : undefined;
 
   return (
     <>
@@ -46,7 +52,7 @@ const Sidebar = ({ chats }: SidebarProps) => {
             animate={{ x: 0 }}
             exit={{ x: -300 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            className={`fixed top-0 left-0 w-48 h-screen border border-r p-2 pb-4 hidden md:block dark:bg-neutral-950 bg-gray-100 ${
+            className={`fixed top-0 left-0 w-48 h-screen border border-r p-2 pb-4 hidden md:block dark:bg-neutral-950 bg-gray-100 z-50 ${
               isHovering ? "opacity-65" : ""
             }`}
           >
@@ -58,7 +64,14 @@ const Sidebar = ({ chats }: SidebarProps) => {
                 </div>
               </div>
               <div className="mt-auto">
-                {isLoading ? <Skeleton /> : <UserDropdown user={user} />}
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  <UserDropdown
+                    user={user}
+                    mostRecentChatId={mostRecentChatId}
+                  />
+                )}
               </div>
             </div>
           </motion.aside>
@@ -92,7 +105,7 @@ const SidebarToggleButton = ({
     >
       <motion.button
         onClick={handleSidebarToggle}
-        className={`fixed top-1/2  z-50  rounded-lg translate-y-[-50%] md:block hidden ${
+        className={`fixed top-1/2  z-[999]  rounded-lg translate-y-[-50%] md:block hidden ${
           isSidebarOpen ? "left-48" : "left-[3px]"
         }`}
         variants={buttonVariants}

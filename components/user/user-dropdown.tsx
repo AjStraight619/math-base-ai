@@ -19,59 +19,64 @@ type UserDropdownProps = {
   mostRecentChatId?: string;
 };
 
-const UserDropdown = ({ user, mostRecentChatId }: UserDropdownProps) => {
-  const mostRecentChatPath = mostRecentChatId
-    ? `/chat/${mostRecentChatId}`
-    : "/chat/first-chat";
+const UserDropdown = React.memo(
+  ({ user, mostRecentChatId }: UserDropdownProps) => {
+    console.log("Most recent chat id: ", mostRecentChatId);
+    const mostRecentChatPath = mostRecentChatId
+      ? `/chat/${mostRecentChatId}`
+      : "/chat/first-chat";
 
-  const userProfilePath = `/dashboard/profile/${user?.id}`;
+    const userProfilePath = `/dashboard/profile/${user?.id}`;
 
-  // Dynamically update paths for options based on user data
-  const updatedUserOptions = userOptions.map((option) => {
-    if (option.name === "Chat") {
-      return { ...option, path: mostRecentChatPath };
-    } else if (option.name === "Settings") {
-      return { ...option, path: userProfilePath };
-    }
-    return option;
-  });
+    // Dynamically update paths for options based on user data
+    const updatedUserOptions = userOptions.map((option) => {
+      if (option.name === "Chat") {
+        return { ...option, path: mostRecentChatPath };
+      } else if (option.name === "Settings") {
+        return { ...option, path: userProfilePath };
+      }
+      return option;
+    });
 
-  return (
-    <DropdownMenu>
-      <CustomTooltip tooltipMessage="User Options">
-        <DropdownMenuTrigger className="" asChild>
-          <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer ">
-            <UserAvatar user={user} />
-            <span className="text-sm">
-              {user?.given_name + " " + user?.family_name}
-            </span>
-          </div>
-        </DropdownMenuTrigger>
-      </CustomTooltip>
-      <DropdownMenuContent className="p-2">
-        <motion.ul variants={ulVariants} animate="animate" initial="hidden">
-          {updatedUserOptions.map((option) => (
-            <React.Fragment key={option.name}>
-              <motion.li
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                variants={liVariants}
-              >
-                <Link
-                  className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
-                  href={option.path}
+    return (
+      <DropdownMenu>
+        <CustomTooltip tooltipMessage="User Options">
+          <DropdownMenuTrigger className="" asChild>
+            <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer ">
+              <UserAvatar user={user} />
+              <span className="text-sm">
+                {user?.given_name + " " + user?.family_name}
+              </span>
+            </div>
+          </DropdownMenuTrigger>
+        </CustomTooltip>
+        <DropdownMenuContent className="p-2">
+          <motion.ul variants={ulVariants} animate="animate" initial="hidden">
+            {updatedUserOptions.map((option) => (
+              <React.Fragment key={option.name}>
+                <motion.li
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  variants={liVariants}
                 >
-                  {option.icon}
-                  {option.name}
-                </Link>
-              </motion.li>
-              {option.name === "Note" && <Separator className="my-2" />}
-            </React.Fragment>
-          ))}
-        </motion.ul>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
+                  <Link
+                    className="flex flex-row justify-start items-center gap-2 p-2 rounded-lg hover:bg-primary-foreground hover:cursor-pointer"
+                    href={option.path}
+                  >
+                    {option.icon}
+                    {option.name}
+                  </Link>
+                </motion.li>
+                {option.name === "Note" && <Separator className="my-2" />}
+              </React.Fragment>
+            ))}
+          </motion.ul>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+);
+
+UserDropdown.displayName = "UserDropdown";
 
 export default UserDropdown;

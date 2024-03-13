@@ -1,3 +1,4 @@
+import { useSidebarContext } from "@/context/sidebar-presence-context";
 import { ChatRequestOptions } from "ai";
 import { SendIcon } from "lucide-react";
 import { ChangeEvent, FormEvent, useEffect, useRef } from "react";
@@ -50,11 +51,15 @@ const ChatInput = ({
     }
   };
 
+  const { isSidebarOpen } = useSidebarContext();
+
   return (
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="fixed bottom-0 left-0 right-0 md:left-48 lg:left-0 mx-auto"
+      className={`fixed bottom-0 left-0 right-0  lg:left-0 mx-auto ${
+        isSidebarOpen ? "md:left-48" : "md:pl-0"
+      }`}
     >
       <div className="shadow-md mx-auto p-2 mb-2  w-full lg:w-[calc(100% - 12rem)] w-full md:max-w-xl relative z-50">
         <Textarea

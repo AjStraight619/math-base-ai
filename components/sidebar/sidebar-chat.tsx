@@ -28,7 +28,6 @@ const SidebarChat = ({ chats }: SidebarChatProps) => {
   // * Pop the id off of the end of the url. Keeping state in URL.
   const pathname = usePathname();
   const currentChat = pathname.split("/").pop();
-  console.log("Current Chat: ", currentChat);
   const { push } = useRouter();
 
   const initialChats =
